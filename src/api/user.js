@@ -21,4 +21,6 @@ import QS from 'qs'
 
 
 
+// export const login = p => post('service-sso/auth/oauth/token',p);
 export const login = p => post(authConfig.userLoginUri,p);
+export const getUserInfo = p => post('/auth/member',p);

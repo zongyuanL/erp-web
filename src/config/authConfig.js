@@ -2,7 +2,8 @@ export default {
   //请求授权地址
   userAuthorizationUri: "/auth/oauth/authorize",
     //请求授权地址
-  userLoginUri: "/auth/oauth/token",
+  // userLoginUri: "/auth/oauth/token",
+  userLoginUri: "/auth/appLogin",
   //accessToken请求地址
   accessTokenUri: "/auth/oauth/access_token",
   //用户信息请求地址
@@ -15,8 +16,8 @@ export default {
   //案例资源服务器地址
   resUri: "http://localhost:8080",
   //客户端相关标识，请从认证服务器申请
-  clientId: "testclient",
-  client_secret: "123456",
+  clientId: "zysfx",
+  client_secret: "user123",
   //申请的权限范围
   scope: "user",
   //可选参数，客户端的当前状态，可以指定任意值，用于校验，此次案例不做相关认证

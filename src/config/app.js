@@ -1,6 +1,7 @@
 import localKey from './localKey'
 
-const devApiUrl = 'http://localhost:9999';
+const devApiUrl = 'http://192.168.3.19:9999';
+// http://192.168.3.37:9999/service-sso/auth/oauth/token
 
 
 const proApiUrl = 'http://api.youUrl.com';

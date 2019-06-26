@@ -7,13 +7,17 @@ import router from '@/router'
 
 const service = Axios.create({
     baseURL: Config.apiUrl + '/' + Config.apiPrefix,
+    withCredentials: false,
     headers: {
         'Accept': '*/*'
+        // 'Access-Control-Allow-Origin': '*'
     },
     timeout: Config.timeout
 })
 service.defaults.retry = Config.requestRetry;
 service.defaults.retryDelay = Config.requestRetryDelay;
+service.defaults.withCredentials= false;
+service.defaults.responseType= 'json';
 //service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 service.interceptors.request.use(
@@ -56,22 +60,23 @@ service.interceptors.response.use(
             });
             //return Promise.reject('error')
         } else {
+            debugger
             if((response.config).hasOwnProperty('closeInterceptors') && response.config.closeInterceptors){
                 return res.data
             }
-            if(typeof(res.data.access_token) != "undefined" && res.data.access_token != "" && res.data.access_token != null){
-                console.log('have token')
-                return res.data
-            }else{
-                console.log('no have token')
-            }
+            // if(typeof(res.data.access_token) != "undefined" && res.data.access_token != "" && res.data.access_token != null){
+            //     console.log('have token')
+            //     return res.data
+            // }else{
+            //     console.log('no have token')
+            // }
 
-            if(res.data.resultCode != 200){
+            if(res.data.code != 200){
                 Notification({
                     title:res.data.message,
                     type:'warning'
                 });
-                if(res.data.resultCode == 402){//登录状态失效
+                if(res.data.code == 402){//登录状态失效
                     removeToken();
                     setTimeout(_=>{
                         window.location.href = './login.html';
@@ -79,7 +84,11 @@ service.interceptors.response.use(
                 }
                 return Promise.reject('error');
             }
-            return res.data.data
+            if(typeof(res.data.data)==="object"){
+                return res.data.data
+            }else{
+                return JSON.parse(res.data.data)
+            }
         }
     },
     error => {
@@ -111,9 +120,29 @@ export function get(url, params) {
 }
 
 // 封装post方法
+export function postJSON(url, params) {
+    return new Promise((resolve, reject) => {
+        service.transformRequest= [function (fData, headers) {
+                    headers['Content-Type']='application/json'
+                    return JSON.stringify(fData)
+                }];
+        service.post(url, params)
+            .then(res => {
+                resolve(res);
+            })
+            .catch(err => {
+                reject(err)
+            })
+    });
+}
+
 export function post(url, params) {
     return new Promise((resolve, reject) => {
-        service.post(url, QS.stringify(params))
+        service.transformRequest= [function (fData, headers) {
+                    headers['Content-Type']='Content-Type为application/x-www-form-urlencoded'
+                    return QS.stringify(fData)
+                }];
+        service.post(url, params)
             .then(res => {
                 resolve(res);
             })

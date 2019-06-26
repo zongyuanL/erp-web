@@ -80,6 +80,7 @@
           this.processLogin(r)
         }).catch(_=>{
           console.log(_);
+          this.loginLoading = false;
 
         })
         // setTimeout(() => {
