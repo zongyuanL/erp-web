@@ -7,10 +7,11 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "element-ui": "^2.5.4",
     "good-storage": "^1.1.0",
     "lodash": "^4.17.11",
+    "mockjs": "^1.0.1-beta3",
     "qs": "^6.7.0",
     "screenfull": "^3.3.3",
     "vue": "^2.6.6",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
+    "axios-mock-adapter": "^1.17.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.6"

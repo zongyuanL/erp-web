@@ -1,6 +1,6 @@
 import localKey from './localKey'
 
-const devApiUrl = 'http://192.168.3.19:9999';
+const devApiUrl = 'http://localhost:8080';
 // http://192.168.3.37:9999/service-sso/auth/oauth/token
 
 
@@ -22,6 +22,7 @@ export default {
   tokenKey: 'ACCESS_TOKEN',
   refreshTokenKey: 'REFRESH_TOKEN',
   userInfoKey: 'USER_INFO',
+  mockKey: 'IS_MOCK',
   permissionsKey:'PERMISSION_ARRAY',
   gitHub: 'https://github.com/xusenlin/ElementUIAdmin2',
   ...localKey

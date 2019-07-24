@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import Config from '../config/app.js'
 import { Notification,Loading  } from 'element-ui';
-import {getToken,removeToken} from '../utils/dataStorage.js'
+import {getToken,removeToken,isMock} from '../utils/dataStorage.js'
 import QS from 'qs'
 import router from '@/router'
 
@@ -26,10 +26,14 @@ service.interceptors.request.use(
         if(!config.closeLoading){
             window.loadingInstance = Loading.service();
         }
+        console.log(getToken());
+        debugger
+        if(!isMock()){
 
-        let noParameters = config.url.indexOf('?')  == -1;
-        //config.headers['X-Token'] = getToken() //
-        config.url = noParameters ? config.url+'?access_token=' + getToken(): config.url+'&access_token='+ getToken();
+            let noParameters = config.url.indexOf('?')  == -1;
+            //config.headers['X-Token'] = getToken() //
+            config.url = noParameters ? config.url+'?access_token=' + getToken(): config.url+'&access_token='+ getToken();
+        }
 
         return config
     },
@@ -108,6 +112,7 @@ service.interceptors.response.use(
 //post get
 // 封装get方法
 export function get(url, params) {
+    debugger
     return new Promise((resolve, reject) => {
         service.get(url, {
             params: params
