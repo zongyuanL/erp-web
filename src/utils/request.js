@@ -26,8 +26,6 @@ service.interceptors.request.use(
         if(!config.closeLoading){
             window.loadingInstance = Loading.service();
         }
-        console.log(getToken());
-        debugger
         if(!isMock()){
 
             let noParameters = config.url.indexOf('?')  == -1;
@@ -64,7 +62,6 @@ service.interceptors.response.use(
             });
             //return Promise.reject('error')
         } else {
-            debugger
             if((response.config).hasOwnProperty('closeInterceptors') && response.config.closeInterceptors){
                 return res.data
             }

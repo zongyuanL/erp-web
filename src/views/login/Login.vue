@@ -29,12 +29,12 @@
           @click.native="login"
       >登录
       </el-button>
-      <el-button
+<!--       <el-button
           type="primary" :loading="loginLoading"
           style="width: 100%;margin-bottom: 18px"
           @click.native="testMock"
       >测试
-      </el-button>
+      </el-button> -->
       <div>
         <el-checkbox v-model="Remenber"> Remenber</el-checkbox>
         <a href="javascript:;" style="float: right;color: #3C8DBC;font-size: 14px">Register</a>
@@ -49,6 +49,7 @@
   import {login as loginApi} from '../../api/user'
   import {getUsers as getUsers} from '../../api/user'
   import authConfig from '../../config/authConfig'
+  import Mock from '@/mock'; // 引入mock模块
 
   export default {
     data() {
@@ -59,8 +60,19 @@
         loginLoading: false
       }
     },
+    mounted(){
+      window.startMoc = this.startMoc;
+      window.endMoc = this.endMoc;
+    },
 
     methods: {
+      startMoc(){
+        Mock.start(); //并且执行初始化函数
+      },
+      endMoc(){
+        Mock.end(); //并且执行初始化函数
+      },
+
       processLogin(data){
         console.log(data)
         setToken(data.access_token);
@@ -73,18 +85,16 @@
                //      query: {redirect: router.currentRoute.fullPath}
                //  })
       },
-      testMock(){
-        debugger
-        getUsers({}).then(r=>{
-          console.log(r);
-        })
-        .catch(r=>{
-          console.log(r);
-        });
-      },
 
-
-
+      // testMock(){
+      //   debugger
+      //   getUsers({}).then(r=>{
+      //     console.log(r);
+      //   })
+      //   .catch(r=>{
+      //     console.log(r);
+      //   });
+      // },
       login() {
         this.loginLoading = true;
         loginApi({
@@ -101,16 +111,16 @@
           this.loginLoading = false;
 
         })
-        setTimeout(() => {
-          // setToken('123456789');
-          this.$notify({
-            title: '登录成功',
-            message: '很高兴你使用ElementUIAdmin！别忘了给个Star哦。',
-            type: 'success'
-          });
-          this.loginLoading = false;
-          this.$router.push({path: '/'});
-        }, 1000);
+        // setTimeout(() => {
+        //   // setToken('123456789');
+        //   this.$notify({
+        //     title: '登录成功',
+        //     message: '很高兴你使用ElementUIAdmin！别忘了给个Star哦。',
+        //     type: 'success'
+        //   });
+        //   this.loginLoading = false;
+        //   this.$router.push({path: '/'});
+        // }, 1000);
       }
     }
   }

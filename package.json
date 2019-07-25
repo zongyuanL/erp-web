@@ -25,6 +25,7 @@
     "axios-mock-adapter": "^1.17.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
+    "vconsole": "^3.3.2",
     "vue-template-compiler": "^2.6.6"
   }
 }
