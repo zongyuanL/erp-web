@@ -15,7 +15,7 @@ menu.home = {
  * 字体图标
  * @type {{name: string, icon: string, children: {}}}
  */
-menu.font_icon = {
+menu['font_icon'] = {
   name: '字体图标',
   icon: 'fa fa-th',
   children: {}
@@ -23,7 +23,7 @@ menu.font_icon = {
 let icon = menu.font_icon.children;
 
 icon.font_awesome = {
-  name: 'FontAwesome 4.7',
+  name: 'FontAwesome 4.8',
   path: '/font_awesome',
 
 };

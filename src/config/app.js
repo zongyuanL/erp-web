@@ -24,6 +24,6 @@ export default {
   userInfoKey: 'USER_INFO',
   mockKey: 'IS_MOCK',
   permissionsKey:'PERMISSION_ARRAY',
-  gitHub: 'https://github.com/xusenlin/ElementUIAdmin2',
+  gitHub: 'https://github.com/zongyuanL/erp-doc',
   ...localKey
 }

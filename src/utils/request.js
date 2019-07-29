@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import Config from '../config/app.js'
 import { Notification,Loading  } from 'element-ui';
-import {getToken,removeToken,isMock} from '../utils/dataStorage.js'
+import {getToken,removeToken,getMockToken} from '../utils/dataStorage.js'
 import QS from 'qs'
 import router from '@/router'
 
@@ -26,7 +26,7 @@ service.interceptors.request.use(
         if(!config.closeLoading){
             window.loadingInstance = Loading.service();
         }
-        if(!isMock()){
+        if(!getMockToken()){
 
             let noParameters = config.url.indexOf('?')  == -1;
             //config.headers['X-Token'] = getToken() //
@@ -109,7 +109,6 @@ service.interceptors.response.use(
 //post get
 // 封装get方法
 export function get(url, params) {
-    debugger
     return new Promise((resolve, reject) => {
         service.get(url, {
             params: params

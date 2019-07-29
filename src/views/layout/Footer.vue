@@ -4,14 +4,16 @@
       <b>Version</b> {{ $Config.version }}
       <a :href="$Config.gitHub" target="_blank"><i class="fa fa-github github"></i></a>
     </div>
-    <strong>Copyright © 2014-2016 <a href="javascript:;">{{ $Config.siteName }}</a>.</strong> All rights reserved.
+    <strong>Copyright © 2015-{{ currentYear }} <a href="javascript:;">{{ $Config.siteName }}</a>.</strong> All rights reserved.
   </div>
 </template>
 
 <script>
   export default {
     data() {
-      return {};
+      return {
+        currentYear :(new Date).getFullYear()
+      };
     },
     methods: {}
   }

@@ -42,16 +42,12 @@ export function isLogin() {
     return (getToken() || '').length >5
 }
 
-export function isMock(){
+export function getMockToken(){
     return Storage.session.get(Config.mockKey);
 }
 
-export function startMock(){
-    return Storage.session.set(Config.mockKey,true);
-}
-
-export function endMock(){
-    return Storage.session.set(Config.mockKey,false);
+export function setMockToken(flag){
+    return Storage.session.set(Config.mockKey,flag);
 }
 
 

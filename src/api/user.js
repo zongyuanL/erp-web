@@ -24,5 +24,6 @@ import QS from 'qs'
 // export const login = p => post('service-sso/auth/oauth/token',p);
 export const login = p => post(authConfig.userLoginUri,p);
 export const getUserInfo = p => post('/auth/member',p);
+export const getMenu = p => get('/menu',p);
 // export const getUsers = p => get('/user/list',p);
 // export const getUsers = p => get('http://localhost:8080/todo/list',p);

@@ -46,10 +46,12 @@
 
 <script>
   import {setToken,setRefreshToken} from '../../utils/dataStorage'
-  import {login as loginApi} from '../../api/user'
+  import {login as loginApi} from '@/api/user'
+  import {getMenu as getMenu} from '@/api/user'
   import {getUsers as getUsers} from '../../api/user'
   import authConfig from '../../config/authConfig'
   import Mock from '@/mock'; // 引入mock模块
+  import menuUtils from '@/router/menuUtils'
 
   export default {
     data() {
@@ -61,31 +63,41 @@
       }
     },
     mounted(){
-      window.startMoc = this.startMoc;
-      window.endMoc = this.endMoc;
+      window.startMock = this.startMock;
+      window.endMock = this.endMock;
+      window.isMock =  this.isMock;
     },
 
     methods: {
-      startMoc(){
+      startMock(){
         Mock.start(); //并且执行初始化函数
       },
-      endMoc(){
+      endMock(){
         Mock.end(); //并且执行初始化函数
+      },
+      isMock(){
+        Mock.state(); //并且执行初始化函数
       },
 
       processLogin(data){
-        console.log(data)
         setToken(data.access_token);
         setRefreshToken(data.refresh_token);
-        this.loginLoading = false;
-        this.$router.push({path: '/'});
+
+        getMenu({}).then(r=>{
+          let _menuList = {};
+          let _RouteList = [];
+          menuUtils(_menuList,_RouteList,r);
+          this.loginLoading = false;
+          this.$router.push({path: '/'});
+        }).catch(_=>{
+          console.log(_);
+        });
 
                // router.replace({
                //      path: '/',
                //      query: {redirect: router.currentRoute.fullPath}
                //  })
       },
-
       // testMock(){
       //   debugger
       //   getUsers({}).then(r=>{

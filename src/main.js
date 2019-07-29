@@ -10,6 +10,7 @@ import App from './App.vue'
 
 
 import Mock from './mock'; // 引入mock模块
+// Mock.start();
 
 import vConsole from '@/assets/js/vConsole.js'
 
@@ -39,15 +40,19 @@ new Vue({
   mounted (
 
   ){
-      window.startMoc = this.startMoc;
-      window.endMoc = this.endMoc;
+      window.startMock = this.startMock;
+      window.endMock = this.endMock;
+      window.isMock =  this.isMock;
   },
   methods: {
-      startMoc(){
+      startMock(){
         Mock.start(); //并且执行初始化函数
       },
-      endMoc(){
+      endMock(){
         Mock.end(); //并且执行初始化函数
+      },
+      isMock(){
+        Mock.state(); //并且执行初始化函数
       },
 
   },

@@ -200,6 +200,7 @@
       },
       logout() {
         sessionStorage.removeItem(this.$Config.tokenKey);
+        sessionStorage.removeItem(this.$Config.refreshTokenKey);
         this.$router.push({path: '/login'});
       },
       handleOpen(key, keyPath) {

@@ -2,7 +2,8 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Mock from 'mockjs';
 import { Users } from './data/user.js'; // 导入Users数据
-import {startMock,endMock} from '@/utils/dataStorage'
+import { Menu } from './data/menu.js'; // 导入Users数据
+import {setMockToken,getMockToken} from '@/utils/dataStorage'
 
 var mock = new MockAdapter(axios);
 
@@ -17,7 +18,7 @@ export default {
    * mock start
    */
   start() {
-    startMock();
+    setMockToken(true);
      // 初始化函数
      // 创建 MockAdapter 实例
 
@@ -47,6 +48,20 @@ export default {
         setTimeout(() => {
           resolve([200, {
             data:mockUsers,
+            code: 200,
+            message: 'SUCESS'
+          }]);
+        }, 1000);
+      });
+    });
+
+    mock.onGet('/menu').reply(config => { //  config 指 前台传过来的值  网址自己随意定义，访问时要和这个网址一致就可以，这个'/user/list'，就是get请求时的url地址
+
+      let mockMenu = Menu;
+      return new Promise((resolve, reject) => {  //响应请求，返回数据给前台
+        setTimeout(() => {
+          resolve([200, {
+            data:mockMenu,
             code: 200,
             message: 'SUCESS'
           }]);
@@ -94,12 +109,21 @@ export default {
         }, 200);
       });
     });
-    console.log("********************！！！！！！！MOCK STARTED! U~ R~ WORKing IN MOCK MODEL NOW！！！！！！！********************");
+    console.log("********************！！！！！！！MOCK STARTED! U~ R~ WORKing IN %c MOCK MODEL %c NOW！！！！！！！********************","color:red","color:black");
   },
   end(){
     mock.restore();
-    endMock();
-    console.log("********************！！！！！！！MOCK ENDED! U~ R~ WORKing IN NORMAL MODEL NOW！！！！！！！********************");
+    setMockToken(false);
+    console.log("********************！！！！！！！MOCK ENDED! U~ R~ WORKing IN %c NORMAL %c MODEL NOW！！！！！！！********************","color:red","color:black");
+
+  },
+  state(){
+    if(getMockToken()){
+      console.log("********************！！！！！！！MOCK STARTED! U~ R~ WORKing IN %c MOCK %c MODEL NOW！！！！！！！********************","color:red","color:black");
+    }else{
+      console.log("********************！！！！！！！MOCK ENDED! U~ R~ WORKing IN %c NORMAL %c MODEL NOW！！！！！！！********************","color:red","color:black");
+
+    }
 
   }
 };
